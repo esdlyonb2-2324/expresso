@@ -1,12 +1,59 @@
 const express = require('express')
 const app = express()
 
-const port = 3001
+const port = 3002
 app.use(express.json())
 
 app.listen(port, ()=>{
     console.log("knock knock knock knock")
 })
+
+const pizzas = [
+    {
+        id:1,
+        name: "trois fromages",
+        price: 13
+    },
+    {
+        id:2,
+        name: "reine",
+        price: 12
+    },
+    {
+        id:3,
+        name: "margherita",
+        price: 10
+    }
+
+]
+
+app.get('/pizzas',(req, res)=>{
+    res.send(pizzas)
+})
+app.get('/pizzas/:id', (req, res)=>{
+
+    const  { id }  = req.params
+
+
+    const pizza = pizzas.find((p)=> p.id == id )
+    console.log(pizza)
+    res.send(pizza)
+
+})
+
+app.post('/pizzas/new',(req, res)=>{
+    let pizza = {}
+
+    pizza.id = Math.max(...pizzas.map(p => p.id))+1
+    let {...pizzza} = req.body
+    Object.assign(pizza,pizzza)
+
+    pizzas.push(pizza)
+    console.log(pizzas)
+})
+
+
+
 
 app.get('/hello',(req, res)=>{
     res.send('salut')
