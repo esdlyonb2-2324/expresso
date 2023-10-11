@@ -1,0 +1,51 @@
+const { Router } = require ('express')
+const router = Router()
+
+const pizzas = [
+    {
+        id:1,
+        name: "trois fromages",
+        price: 13
+    },
+    {
+        id:2,
+        name: "reine",
+        price: 12
+    },
+    {
+        id:3,
+        name: "margherita",
+        price: 10
+    }
+
+]
+
+router.get('/',(req, res)=>{
+    res.send(pizzas)
+})
+router.get('/:name', (req, res)=>{
+
+    const  { name }  = req.params
+
+
+    const pizza = pizzas.find((p)=> p.name === name )
+    console.log(pizza)
+    res.send(pizza)
+
+})
+
+router.post('/new',(req, res)=>{
+
+    let pizza = {}
+    pizza.id = Math.max(...pizzas.map(pizz=>pizz.id))+1
+
+    let {...pizzaRecue} = req.body
+
+    Object.assign(pizza,pizzaRecue)
+
+    pizzas.push(pizza)
+    res.send(pizzas)
+
+})
+
+module.exports = router
