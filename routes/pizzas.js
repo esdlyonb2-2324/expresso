@@ -1,5 +1,6 @@
 const { Router } = require ('express')
 const router = Router()
+const Pizza = require('../models/Pizza')
 
 const pizzas = [
     {
@@ -46,6 +47,13 @@ router.post('/new',(req, res)=>{
     pizzas.push(pizza)
     res.send(pizzas)
 
+})
+router.post('/add',(req, res)=>{
+
+    let { ...pizzaParams} = req.body
+
+    let newPizza = Pizza.create(...pizzaParams)
+    res.sendStatus(201)
 })
 
 module.exports = router
