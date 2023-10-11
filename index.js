@@ -30,26 +30,29 @@ const pizzas = [
 app.get('/pizzas',(req, res)=>{
     res.send(pizzas)
 })
-app.get('/pizzas/:id', (req, res)=>{
+app.get('/pizzas/:name', (req, res)=>{
 
-    const  { id }  = req.params
+    const  { name }  = req.params
 
 
-    const pizza = pizzas.find((p)=> p.id == id )
+    const pizza = pizzas.find((p)=> p.name === name )
     console.log(pizza)
     res.send(pizza)
 
 })
 
 app.post('/pizzas/new',(req, res)=>{
-    let pizza = {}
 
-    pizza.id = Math.max(...pizzas.map(p => p.id))+1
-    let {...pizzza} = req.body
-    Object.assign(pizza,pizzza)
+    let pizza = {}
+    pizza.id = Math.max(...pizzas.map(pizz=>pizz.id))+1
+
+    let {...pizzaRecue} = req.body
+
+    Object.assign(pizza,pizzaRecue)
 
     pizzas.push(pizza)
-    console.log(pizzas)
+    res.send(pizzas)
+
 })
 
 
