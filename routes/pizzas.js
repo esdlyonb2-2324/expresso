@@ -1,7 +1,7 @@
 const { Router } = require ('express')
 const router = Router()
 const Pizza = require('../models/Pizza')
-const createPizza = require('../controllers/Pizza')
+const { createPizza } = require('../controllers/Pizza')
 
 const pizzas = [
     {
@@ -49,7 +49,7 @@ router.post('/new',(req, res)=>{
     res.send(pizzas)
 
 })
-router.post('/add', createPizza.create)
+router.post('/add', createPizza)
 
 
 
